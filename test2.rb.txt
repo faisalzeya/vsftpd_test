@@ -1,0 +1,25 @@
+require 'erb'
+class Foo
+  attr_accessor :a, :b, :c
+  def template_binding
+    binding
+  end
+end
+
+new_file = File.open("./result1.txt", "w+")
+template = File.read("./test1.erb")
+foo = Foo.new
+foo.a = "ftp_username=ftp"
+foo.b = "ftp_data_port=20"
+foo.c = "listen_port=21"
+new_file << ERB.new(template).result(foo.template_binding)
+new_file.close
+
+new_file = File.open("./result2.txt", "w+")
+template = File.read("./test2.erb")
+foo = Foo.new
+foo.a = "Hello"
+foo.b = "World"
+foo.c = "Ololo"
+new_file << ERB.new(template).result(foo.template_binding)
+new_file.close

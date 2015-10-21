@@ -1,0 +1,3 @@
+A is: Hello
+B is: World
+C is: Ololo
