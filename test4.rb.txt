@@ -1,0 +1,32 @@
+require 'erb'
+require 'fileutils'
+class Foo
+  attr_accessor :a, :b, :c
+  def template_binding
+    binding
+  end
+end
+
+
+
+if File.exist?('result3.txt')
+  puts "The file already exists...although taking a backup"
+  FileUtils.mv './result3.txt', './result3.ori'
+  new_file = File.open("./result3.txt", "w+")
+  template = File.read("./test3.erb")
+  foo = Foo.new
+  foo.a = "Hello"
+  foo.b = "World"
+  foo.c = "Ololo"
+  new_file << ERB.new(template).result(foo.template_binding)
+  new_file.close
+ else
+  new_file = File.open("./result3.txt", "w+")
+  template = File.read("./test3.erb")
+  foo = Foo.new
+  foo.a = "Hello"
+  foo.b = "World"
+  foo.c = "Ololo"
+  new_file << ERB.new(template).result(foo.template_binding)
+  new_file.close
+end
